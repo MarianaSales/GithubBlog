@@ -1,4 +1,5 @@
 import { Profile } from './components/Profile';
+import { Publications } from './components/Publications';
 import { Search } from './components/Search';
 import { HomePostContainer } from './styles';
 
@@ -7,7 +8,16 @@ export function Home() {
         <>
             <Profile />
             <Search />
-            <HomePostContainer></HomePostContainer>
+            <HomePostContainer>
+                <Publications />
+                <Publications />
+                <Publications />
+                <Publications />
+                <Publications />
+                <Publications />
+                <Publications />
+                <Publications />
+            </HomePostContainer>
         </>
     );
 }
