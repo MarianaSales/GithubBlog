@@ -1,17 +1,19 @@
+import { relativeDateFormatter } from '../../../../utils/formatter';
+import { IPublications } from '../../../interface';
 import { PublicationsContainer } from './styles';
 
-export function Publications() {
+interface PublicationProps {
+    publication: IPublications;
+}
+export function Publications({ publication }: PublicationProps) {
+    const formattedDate = relativeDateFormatter(publication.created_at);
     return (
-        <PublicationsContainer>
+        <PublicationsContainer to={`/post/${publication.number}`}>
             <div>
-                <strong>JavaScript data types and data structures</strong>
-                <span>Há 1 dia</span>
+                <strong>{publication.title}</strong>
+                <span>{formattedDate}</span>
             </div>
-            <p>
-                Programming languages all have built-in data structures, but these often differ from
-                one language to another. This article attempts to list the built-in data structures
-                available in ...
-            </p>
+            <p>{publication.body}</p>
         </PublicationsContainer>
     );
 }

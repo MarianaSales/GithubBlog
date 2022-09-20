@@ -1,6 +1,7 @@
+import { Link } from "react-router-dom";
 import styled from "styled-components";
 
-export const PublicationsContainer = styled.div`
+export const PublicationsContainer = styled(Link)`
   width: 100%;
   height: 16.25rem;
   border-radius: 10px;
