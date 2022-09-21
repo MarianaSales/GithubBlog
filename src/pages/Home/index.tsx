@@ -1,4 +1,5 @@
 import { useCallback, useEffect, useState } from 'react';
+import { Loader } from '../../components/Loader';
 import { api } from '../../services/api';
 import { IPublications } from '../interface';
 import { Profile } from './components/Profile';
@@ -6,8 +7,8 @@ import { Publications } from './components/Publications';
 import { Search } from './components/Search';
 import { HomePostContainer } from './styles';
 
-const username = import.meta.env.VITE_GITHUB_USERNAME;
-const repoName = import.meta.env.VITE_GITHUB_REPONAME;
+export const username = import.meta.env.VITE_GITHUB_USERNAME;
+export const repoName = import.meta.env.VITE_GITHUB_REPONAME;
 
 export function Home() {
     const [publications, setPublication] = useState<IPublications[]>([]);
@@ -35,12 +36,16 @@ export function Home() {
     return (
         <>
             <Profile />
-            <Search />
-            <HomePostContainer>
-                {publications.map((publication) => (
-                    <Publications key={publication.number} publication={publication} />
-                ))}
-            </HomePostContainer>
+            <Search publicationLength={publications.length} getPublication={getPublication} />
+            {loading ? (
+                <Loader />
+            ) : (
+                <HomePostContainer>
+                    {publications.map((publication) => (
+                        <Publications key={publication.number} publication={publication} />
+                    ))}
+                </HomePostContainer>
+            )}
         </>
     );
 }

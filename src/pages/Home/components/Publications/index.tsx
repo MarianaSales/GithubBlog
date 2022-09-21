@@ -7,6 +7,7 @@ interface PublicationProps {
 }
 export function Publications({ publication }: PublicationProps) {
     const formattedDate = relativeDateFormatter(publication.created_at);
+
     return (
         <PublicationsContainer to={`/post/${publication.number}`}>
             <div>
