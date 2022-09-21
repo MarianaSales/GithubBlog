@@ -3,6 +3,7 @@ import { useParams } from 'react-router-dom';
 import { api } from '../../services/api';
 import { repoName, username } from '../Home';
 import { IPublications } from '../interface';
+import { Content } from './components/Content';
 import { Header } from './components/Header';
 
 export function Post() {
@@ -26,6 +27,7 @@ export function Post() {
     return (
         <>
             <Header loading={loading} postInformation={postInformation} />
+            {!loading && <Content content={postInformation.body} />}
         </>
     );
 }
