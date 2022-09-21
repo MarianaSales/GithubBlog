@@ -1,6 +1,7 @@
 import ReactMarkdown from 'react-markdown';
 import { ContentContainer } from './styles';
-
+import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
+import { materialDark } from 'react-syntax-highlighter/dist/cjs/styles/prism';
 interface ContentProps {
     content: string;
 }
@@ -8,7 +9,27 @@ interface ContentProps {
 export function Content({ content }: ContentProps) {
     return (
         <ContentContainer>
-            <ReactMarkdown children={content} />
+            <ReactMarkdown
+                children={content}
+                components={{
+                    code({ node, inline, className, children, ...props }) {
+                        const match = /language-(\w+)/.exec(className || '');
+                        return !inline && match ? (
+                            <SyntaxHighlighter
+                                children={String(children).replace(/\n$/, '')}
+                                style={materialDark as any}
+                                language={match[1]}
+                                PreTag="div"
+                                {...props}
+                            />
+                        ) : (
+                            <code className={className} {...props}>
+                                {children}
+                            </code>
+                        );
+                    },
+                }}
+            />
         </ContentContainer>
     );
 }
